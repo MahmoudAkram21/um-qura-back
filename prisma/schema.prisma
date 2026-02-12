@@ -1,0 +1,63 @@
+// Agricultural Calendar & Stars - Prisma Schema
+// Database: MySQL
+
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "mysql"
+}
+
+// ------------------------------------------
+// Season: e.g. Winter, Spring, Summer, Autumn
+// ------------------------------------------
+model Season {
+  id        Int    @id @default(autoincrement())
+  name      String
+  colorHex  String @map("color_hex")
+  iconName  String @map("icon_name")
+  duration  String
+  sortOrder Int    @map("sort_order")
+  stars     Star[]
+
+  @@map("seasons")
+}
+
+// ------------------------------------------
+// Admin: backend admin users (auth)
+// ------------------------------------------
+model Admin {
+  id           Int      @id @default(autoincrement())
+  email        String   @unique
+  passwordHash String  @map("password_hash")
+  name         String?
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  @@map("admins")
+}
+
+// ------------------------------------------
+// Star: astronomical period within a season
+// Content (description, weather, agricultural, tips) is editable by admin
+// ------------------------------------------
+model Star {
+  id               Int      @id @default(autoincrement())
+  seasonId         Int      @map("season_id")
+  name             String
+  startDate        DateTime @map("start_date")
+  endDate          DateTime @map("end_date")
+  description      String?
+  weatherInfo      String?  @map("weather_info") @db.Text
+  agriculturalInfo Json     @default("[]") @map("agricultural_info")
+  tips             Json     @default("[]")
+  createdAt        DateTime @default(now()) @map("created_at")
+  updatedAt        DateTime @updatedAt @map("updated_at")
+
+  season Season @relation(fields: [seasonId], references: [id], onDelete: Cascade)
+
+  @@index([seasonId])
+  @@map("stars")
+}
