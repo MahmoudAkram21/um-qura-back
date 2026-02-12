@@ -11,11 +11,16 @@ import { notFound } from "./middleware/notFound.js";
 const app = express();
 const PORT = process.env.PORT ?? 4000;
 
-// CORS: use env or allow all in dev
+// CORS: always allow Vercel front; CORS_ORIGIN = "*" or comma-separated list (unset = allow all)
+const CORS_VERCEL = "https://um-qura-front-it2z.vercel.app";
 const corsOrigin = process.env.CORS_ORIGIN;
+const allowedOrigins =
+  corsOrigin && corsOrigin !== "*"
+    ? [CORS_VERCEL, ...corsOrigin.split(",").map((o) => o.trim())]
+    : true;
 app.use(
   cors({
-    origin: corsOrigin === "*" || !corsOrigin ? true : corsOrigin.split(",").map((o) => o.trim()),
+    origin: allowedOrigins,
     credentials: true,
   })
 );
