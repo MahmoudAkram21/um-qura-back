@@ -11,4 +11,6 @@
 export type * from './models/Season.js'
 export type * from './models/Admin.js'
 export type * from './models/Star.js'
+export type * from './models/Occasion.js'
+export type * from './models/Prayer.js'
 export type * from './commonInputTypes.js'

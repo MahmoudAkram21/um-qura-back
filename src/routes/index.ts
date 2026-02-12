@@ -10,11 +10,17 @@ import starsRoutes from "./stars.routes.js";
 import authRoutes from "./auth.routes.js";
 import mobileRoutes from "./mobile.routes.js";
 import adminRoutes from "./admin/index.js";
+import occasionsRoutes from "./occasions.routes.js";
+import prayersRoutes from "./prayers.routes.js";
 
 const router = Router();
 
 // Public calendar (backward compatible; also used by mobile)
 router.use("/v1/stars", starsRoutes);
+// Public occasions display (today, current month, next month, year)
+router.use("/v1/occasions", occasionsRoutes);
+// Public prayers (random)
+router.use("/v1/prayers", prayersRoutes);
 
 router.use("/v1/auth", authRoutes);
 router.use("/v1/mobile", mobileRoutes);

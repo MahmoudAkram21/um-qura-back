@@ -386,7 +386,9 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 export const ModelName = {
   Season: 'Season',
   Admin: 'Admin',
-  Star: 'Star'
+  Star: 'Star',
+  Occasion: 'Occasion',
+  Prayer: 'Prayer'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -402,7 +404,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "season" | "admin" | "star"
+    modelProps: "season" | "admin" | "star" | "occasion" | "prayer"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -604,6 +606,138 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    Occasion: {
+      payload: Prisma.$OccasionPayload<ExtArgs>
+      fields: Prisma.OccasionFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.OccasionFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OccasionPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.OccasionFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OccasionPayload>
+        }
+        findFirst: {
+          args: Prisma.OccasionFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OccasionPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.OccasionFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OccasionPayload>
+        }
+        findMany: {
+          args: Prisma.OccasionFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OccasionPayload>[]
+        }
+        create: {
+          args: Prisma.OccasionCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OccasionPayload>
+        }
+        createMany: {
+          args: Prisma.OccasionCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        delete: {
+          args: Prisma.OccasionDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OccasionPayload>
+        }
+        update: {
+          args: Prisma.OccasionUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OccasionPayload>
+        }
+        deleteMany: {
+          args: Prisma.OccasionDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.OccasionUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        upsert: {
+          args: Prisma.OccasionUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OccasionPayload>
+        }
+        aggregate: {
+          args: Prisma.OccasionAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateOccasion>
+        }
+        groupBy: {
+          args: Prisma.OccasionGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.OccasionGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.OccasionCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.OccasionCountAggregateOutputType> | number
+        }
+      }
+    }
+    Prayer: {
+      payload: Prisma.$PrayerPayload<ExtArgs>
+      fields: Prisma.PrayerFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.PrayerFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PrayerPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.PrayerFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PrayerPayload>
+        }
+        findFirst: {
+          args: Prisma.PrayerFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PrayerPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.PrayerFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PrayerPayload>
+        }
+        findMany: {
+          args: Prisma.PrayerFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PrayerPayload>[]
+        }
+        create: {
+          args: Prisma.PrayerCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PrayerPayload>
+        }
+        createMany: {
+          args: Prisma.PrayerCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        delete: {
+          args: Prisma.PrayerDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PrayerPayload>
+        }
+        update: {
+          args: Prisma.PrayerUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PrayerPayload>
+        }
+        deleteMany: {
+          args: Prisma.PrayerDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.PrayerUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        upsert: {
+          args: Prisma.PrayerUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PrayerPayload>
+        }
+        aggregate: {
+          args: Prisma.PrayerAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregatePrayer>
+        }
+        groupBy: {
+          args: Prisma.PrayerGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PrayerGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.PrayerCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PrayerCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -684,6 +818,30 @@ export const StarScalarFieldEnum = {
 export type StarScalarFieldEnum = (typeof StarScalarFieldEnum)[keyof typeof StarScalarFieldEnum]
 
 
+export const OccasionScalarFieldEnum = {
+  id: 'id',
+  hijriMonth: 'hijriMonth',
+  hijriDay: 'hijriDay',
+  title: 'title',
+  prayerTitle: 'prayerTitle',
+  prayerText: 'prayerText',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type OccasionScalarFieldEnum = (typeof OccasionScalarFieldEnum)[keyof typeof OccasionScalarFieldEnum]
+
+
+export const PrayerScalarFieldEnum = {
+  id: 'id',
+  text: 'text',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PrayerScalarFieldEnum = (typeof PrayerScalarFieldEnum)[keyof typeof PrayerScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -750,6 +908,22 @@ export const StarOrderByRelevanceFieldEnum = {
 } as const
 
 export type StarOrderByRelevanceFieldEnum = (typeof StarOrderByRelevanceFieldEnum)[keyof typeof StarOrderByRelevanceFieldEnum]
+
+
+export const OccasionOrderByRelevanceFieldEnum = {
+  title: 'title',
+  prayerTitle: 'prayerTitle',
+  prayerText: 'prayerText'
+} as const
+
+export type OccasionOrderByRelevanceFieldEnum = (typeof OccasionOrderByRelevanceFieldEnum)[keyof typeof OccasionOrderByRelevanceFieldEnum]
+
+
+export const PrayerOrderByRelevanceFieldEnum = {
+  text: 'text'
+} as const
+
+export type PrayerOrderByRelevanceFieldEnum = (typeof PrayerOrderByRelevanceFieldEnum)[keyof typeof PrayerOrderByRelevanceFieldEnum]
 
 
 
@@ -897,6 +1071,8 @@ export type GlobalOmitConfig = {
   season?: Prisma.SeasonOmit
   admin?: Prisma.AdminOmit
   star?: Prisma.StarOmit
+  occasion?: Prisma.OccasionOmit
+  prayer?: Prisma.PrayerOmit
 }
 
 /* Types for Logging */

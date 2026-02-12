@@ -5,7 +5,7 @@
 import "dotenv/config";
 import bcrypt from "bcrypt";
 import { PrismaMariaDb } from "@prisma/adapter-mariadb";
-import { PrismaClient } from "../generated/prisma/client.js";
+import { PrismaClient } from "../src/generated/prisma/client.js";
 
 const connectionUrl = process.env.DATABASE_URL;
 if (!connectionUrl) throw new Error("DATABASE_URL is not set");
@@ -136,6 +136,39 @@ async function main() {
     ],
   });
 
+  // Occasions (Hijri: month 1–12, day 1–30) – delete then create
+  await prisma.occasion.deleteMany({});
+  await prisma.occasion.createMany({
+    data: [
+      { hijriMonth: 1, hijriDay: 1, title: "رأس السنة الهجرية", prayerTitle: "دعاء بداية العام", prayerText: "اللهم أهلّه علينا بالأمن والإيمان والسلامة والإسلام." },
+      { hijriMonth: 1, hijriDay: 10, title: "عاشوراء", prayerTitle: "دعاء يوم عاشوراء", prayerText: "اللهم إنّي أسألك بحقّ هذا اليوم ومن حفظته وورثته." },
+      { hijriMonth: 3, hijriDay: 12, title: "المولد النبوي الشريف", prayerTitle: "الصلاة على النبي", prayerText: "اللهم صلّ على محمد وعلى آل محمد كما صلّيت على إبراهيم وعلى آل إبراهيم." },
+      { hijriMonth: 7, hijriDay: 27, title: "ليلة الإسراء والمعراج", prayerTitle: "دعاء ليلة المعراج", prayerText: "سبحان الذي أسرى بعبده ليلاً من المسجد الحرام إلى المسجد الأقصى." },
+      { hijriMonth: 8, hijriDay: 15, title: "ليلة النصف من شعبان", prayerTitle: "دعاء ليلة النصف من شعبان", prayerText: "اللهم إن كنت كتبتني عندك في أمّ الكتاب شقياً فامحُ عني واكتبني سعيداً." },
+      { hijriMonth: 9, hijriDay: 1, title: "بداية شهر رمضان المبارك", prayerTitle: "دعاء استقبال رمضان", prayerText: "اللهم أهّل علينا شهر رمضان بالأمن والإيمان والسلامة والإسلام." },
+      { hijriMonth: 9, hijriDay: 27, title: "ليلة القدر", prayerTitle: "دعاء ليلة القدر", prayerText: "اللهم إنك عفوّ تحب العفو فاعفُ عنّا." },
+      { hijriMonth: 10, hijriDay: 1, title: "عيد الفطر المبارك", prayerTitle: "دعاء عيد الفطر", prayerText: "تقبّل الله منّا ومنكم صالح الأعمال. كلّ عام وأنتم بخير." },
+      { hijriMonth: 12, hijriDay: 8, title: "يوم التروية", prayerTitle: "دعاء يوم التروية", prayerText: "اللهم اجعلني من الحجاج المقبولين والمعتمرين المرزوقين." },
+      { hijriMonth: 12, hijriDay: 9, title: "يوم عرفة", prayerTitle: "دعاء يوم عرفة", prayerText: "لا إله إلا الله وحده لا شريك له، له الملك وله الحمد وهو على كل شيء قدير." },
+      { hijriMonth: 12, hijriDay: 10, title: "عيد الأضحى المبارك", prayerTitle: "دعاء عيد الأضحى", prayerText: "تقبّل الله منّا ومنكم. كلّ عام وأنتم بخير. اللهم تقبّل منّا الطاعات." },
+    ],
+  });
+
+  // Prayers – delete then create (for random endpoint)
+  await prisma.prayer.deleteMany({});
+  await prisma.prayer.createMany({
+    data: [
+      { text: "اللهم إني أسألك من الخير كله عاجله وآجله، ما علمت منه وما لم أعلم، وأعوذ بك من الشر كله عاجله وآجله، ما علمت منه وما لم أعلم." },
+      { text: "اللهم إني أسألك علماً نافعاً، ورزقاً طيباً، وعملاً متقبلاً." },
+      { text: "ربنا آتنا في الدنيا حسنة وفي الآخرة حسنة وقنا عذاب النار." },
+      { text: "اللهم اهدني وسددني، اللهم إني أسألك الهدى والسداد." },
+      { text: "اللهم اغفر لي وارحمني واهدني وعافني وارزقني." },
+      { text: "سبحان الله وبحمده، سبحان الله العظيم." },
+      { text: "اللهم صلّ على محمد وعلى آل محمد، كما صلّيت على إبراهيم وعلى آل إبراهيم، إنك حميد مجيد." },
+      { text: "رضيت بالله رباً وبالإسلام ديناً وبمحمد صلى الله عليه وسلم نبياً." },
+    ],
+  });
+
   // Default admin (use ADMIN_EMAIL / ADMIN_PASSWORD in .env or defaults)
   const adminEmail = (process.env.ADMIN_EMAIL ?? "admin@example.com").trim().toLowerCase();
   const adminPassword = process.env.ADMIN_PASSWORD ?? "Admin123!";
@@ -149,7 +182,7 @@ async function main() {
       name: "Admin",
     },
   });
-  console.log("Seed completed: 4 seasons, 28 stars, and admin user created.");
+  console.log("Seed completed: 4 seasons, 28 stars, 11 occasions, 8 prayers, and admin user created.");
   console.log("Admin login:", adminEmail, "| Change ADMIN_PASSWORD in production.");
 }
 

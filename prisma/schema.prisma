@@ -62,3 +62,32 @@ model Star {
   @@index([seasonId])
   @@map("stars")
 }
+
+// ------------------------------------------
+// Occasion: recurring Hijri occasion with title and prayer
+// ------------------------------------------
+model Occasion {
+  id          Int       @id @default(autoincrement())
+  hijriMonth  Int       @map("hijri_month")
+  hijriDay    Int       @map("hijri_day")
+  title       String
+  prayerTitle String   @map("prayer_title")
+  prayerText  String?  @map("prayer_text") @db.Text
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime  @updatedAt @map("updated_at")
+
+  @@index([hijriMonth, hijriDay])
+  @@map("occasions")
+}
+
+// ------------------------------------------
+// Prayer: standalone prayer text (e.g. for random display)
+// ------------------------------------------
+model Prayer {
+  id        Int      @id @default(autoincrement())
+  text      String   @db.Text
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("prayers")
+}

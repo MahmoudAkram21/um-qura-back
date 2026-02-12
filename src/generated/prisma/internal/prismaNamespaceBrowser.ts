@@ -53,7 +53,9 @@ export const AnyNull = runtime.AnyNull
 export const ModelName = {
   Season: 'Season',
   Admin: 'Admin',
-  Star: 'Star'
+  Star: 'Star',
+  Occasion: 'Occasion',
+  Prayer: 'Prayer'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -111,6 +113,30 @@ export const StarScalarFieldEnum = {
 } as const
 
 export type StarScalarFieldEnum = (typeof StarScalarFieldEnum)[keyof typeof StarScalarFieldEnum]
+
+
+export const OccasionScalarFieldEnum = {
+  id: 'id',
+  hijriMonth: 'hijriMonth',
+  hijriDay: 'hijriDay',
+  title: 'title',
+  prayerTitle: 'prayerTitle',
+  prayerText: 'prayerText',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type OccasionScalarFieldEnum = (typeof OccasionScalarFieldEnum)[keyof typeof OccasionScalarFieldEnum]
+
+
+export const PrayerScalarFieldEnum = {
+  id: 'id',
+  text: 'text',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PrayerScalarFieldEnum = (typeof PrayerScalarFieldEnum)[keyof typeof PrayerScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -179,4 +205,20 @@ export const StarOrderByRelevanceFieldEnum = {
 } as const
 
 export type StarOrderByRelevanceFieldEnum = (typeof StarOrderByRelevanceFieldEnum)[keyof typeof StarOrderByRelevanceFieldEnum]
+
+
+export const OccasionOrderByRelevanceFieldEnum = {
+  title: 'title',
+  prayerTitle: 'prayerTitle',
+  prayerText: 'prayerText'
+} as const
+
+export type OccasionOrderByRelevanceFieldEnum = (typeof OccasionOrderByRelevanceFieldEnum)[keyof typeof OccasionOrderByRelevanceFieldEnum]
+
+
+export const PrayerOrderByRelevanceFieldEnum = {
+  text: 'text'
+} as const
+
+export type PrayerOrderByRelevanceFieldEnum = (typeof PrayerOrderByRelevanceFieldEnum)[keyof typeof PrayerOrderByRelevanceFieldEnum]
 

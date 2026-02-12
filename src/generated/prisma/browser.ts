@@ -32,3 +32,13 @@ export type Admin = Prisma.AdminModel
  * 
  */
 export type Star = Prisma.StarModel
+/**
+ * Model Occasion
+ * 
+ */
+export type Occasion = Prisma.OccasionModel
+/**
+ * Model Prayer
+ * 
+ */
+export type Prayer = Prisma.PrayerModel
