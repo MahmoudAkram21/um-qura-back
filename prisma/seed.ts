@@ -31,115 +31,108 @@ async function main() {
   // Create 4 seasons
   const winter = await prisma.season.upsert({
     where: { id: 1 },
-    update: {},
+    update: { duration: "من 7 ديسمبر إلى 20 مارس (الشتاء)" },
     create: {
       name: "Winter",
       colorHex: "#4A90D9",
       iconName: "snowflake",
-      duration: "December - February",
+      duration: "من 7 ديسمبر إلى 20 مارس (الشتاء)",
       sortOrder: 1,
     },
   });
 
   const spring = await prisma.season.upsert({
     where: { id: 2 },
-    update: {},
+    update: { duration: "من 21 مارس إلى 21 يونيو (الربيع)" },
     create: {
       name: "Spring",
       colorHex: "#7CB342",
       iconName: "leaf",
-      duration: "March - May",
+      duration: "من 21 مارس إلى 21 يونيو (الربيع)",
       sortOrder: 2,
     },
   });
 
   const summer = await prisma.season.upsert({
     where: { id: 3 },
-    update: {},
+    update: { duration: "من 22 يونيو إلى 22 سبتمبر (الصيف)" },
     create: {
       name: "Summer",
       colorHex: "#FFB74D",
       iconName: "sun",
-      duration: "June - August",
+      duration: "من 22 يونيو إلى 22 سبتمبر (الصيف)",
       sortOrder: 3,
     },
   });
 
   const autumn = await prisma.season.upsert({
     where: { id: 4 },
-    update: {},
+    update: { duration: "من 23 سبتمبر إلى 6 ديسمبر (الخريف)" },
     create: {
       name: "Autumn",
       colorHex: "#E57373",
       iconName: "wind",
-      duration: "September - November",
+      duration: "من 23 سبتمبر إلى 6 ديسمبر (الخريف)",
       sortOrder: 4,
     },
   });
 
   const seasonIds = { winter: winter.id, spring: spring.id, summer: summer.id, autumn: autumn.id };
+  const y = year;
+  const yPrev = year - 1;
 
-  // Helper to create a star
-  const createStar = async (
-    seasonId: number,
-    name: string,
-    startMonth: number,
-    startDay: number,
-    endMonth: number,
-    endDay: number
-  ) => {
-    await prisma.star.upsert({
-      where: { id: 0 }, // will use create only via findFirst + create
-      update: {},
-      create: {
-        seasonId,
-        name,
-        startDate: new Date(year, startMonth - 1, startDay),
-        endDate: new Date(year, endMonth - 1, endDay),
-        description: null,
-        weatherInfo: null,
-        agriculturalInfo: [],
-        tips: [],
-      },
-    }).catch(() => {});
-  };
-
-  // Delete existing stars to avoid duplicates, then create
+  // Delete existing stars to avoid duplicates, then create 28 stars
   await prisma.star.deleteMany({});
 
-  // Winter stars (sample)
+  // Winter stars (8): December uses year-1
   await prisma.star.createMany({
     data: [
-      { seasonId: seasonIds.winter, name: "الشرطان", startDate: new Date(year, 0, 6), endDate: new Date(year, 0, 19), description: null, weatherInfo: null, agriculturalInfo: [], tips: [] },
-      { seasonId: seasonIds.winter, name: "البلدة", startDate: new Date(year, 0, 20), endDate: new Date(year, 1, 2), description: null, weatherInfo: null, agriculturalInfo: [], tips: [] },
-      { seasonId: seasonIds.winter, name: "سعد الذابح", startDate: new Date(year, 1, 3), endDate: new Date(year, 1, 16), description: null, weatherInfo: null, agriculturalInfo: [], tips: [] },
+      { seasonId: seasonIds.winter, name: "الإكليل", startDate: new Date(yPrev, 11, 7), endDate: new Date(yPrev, 11, 19), description: "", weatherInfo: null, agriculturalInfo: [], tips: [] },
+      { seasonId: seasonIds.winter, name: "القلب", startDate: new Date(yPrev, 11, 20), endDate: new Date(y, 0, 1), description: "", weatherInfo: null, agriculturalInfo: [], tips: [] },
+      { seasonId: seasonIds.winter, name: "الشولة", startDate: new Date(y, 0, 2), endDate: new Date(y, 0, 14), description: "", weatherInfo: null, agriculturalInfo: [], tips: [] },
+      { seasonId: seasonIds.winter, name: "النعايم", startDate: new Date(y, 0, 15), endDate: new Date(y, 0, 27), description: "", weatherInfo: null, agriculturalInfo: [], tips: [] },
+      { seasonId: seasonIds.winter, name: "البلدة", startDate: new Date(y, 0, 28), endDate: new Date(y, 1, 9), description: "", weatherInfo: null, agriculturalInfo: [], tips: [] },
+      { seasonId: seasonIds.winter, name: "سعد الذابح", startDate: new Date(y, 1, 10), endDate: new Date(y, 1, 22), description: "", weatherInfo: null, agriculturalInfo: [], tips: [] },
+      { seasonId: seasonIds.winter, name: "سعد بلع", startDate: new Date(y, 1, 23), endDate: new Date(y, 2, 7), description: "", weatherInfo: null, agriculturalInfo: [], tips: [] },
+      { seasonId: seasonIds.winter, name: "سعد السعود", startDate: new Date(y, 2, 8), endDate: new Date(y, 2, 20), description: "", weatherInfo: null, agriculturalInfo: [], tips: [] },
     ],
   });
 
-  // Spring stars
+  // Spring stars (7)
   await prisma.star.createMany({
     data: [
-      { seasonId: seasonIds.spring, name: "سعد بلع", startDate: new Date(year, 2, 17), endDate: new Date(year, 2, 30), description: null, weatherInfo: null, agriculturalInfo: [], tips: [] },
-      { seasonId: seasonIds.spring, name: "سعد السعود", startDate: new Date(year, 3, 1), endDate: new Date(year, 3, 13), description: null, weatherInfo: null, agriculturalInfo: [], tips: [] },
-      { seasonId: seasonIds.spring, name: "سعد الأخبية", startDate: new Date(year, 3, 14), endDate: new Date(year, 3, 26), description: null, weatherInfo: null, agriculturalInfo: [], tips: [] },
+      { seasonId: seasonIds.spring, name: "سعد الأخبية", startDate: new Date(y, 2, 21), endDate: new Date(y, 3, 2), description: "", weatherInfo: null, agriculturalInfo: [], tips: [] },
+      { seasonId: seasonIds.spring, name: "المقدم", startDate: new Date(y, 3, 3), endDate: new Date(y, 3, 15), description: "", weatherInfo: null, agriculturalInfo: [], tips: [] },
+      { seasonId: seasonIds.spring, name: "المؤخر", startDate: new Date(y, 3, 16), endDate: new Date(y, 3, 28), description: "", weatherInfo: null, agriculturalInfo: [], tips: [] },
+      { seasonId: seasonIds.spring, name: "الرشا", startDate: new Date(y, 3, 29), endDate: new Date(y, 4, 11), description: "", weatherInfo: null, agriculturalInfo: [], tips: [] },
+      { seasonId: seasonIds.spring, name: "الشرطان", startDate: new Date(y, 4, 12), endDate: new Date(y, 4, 24), description: "", weatherInfo: null, agriculturalInfo: [], tips: [] },
+      { seasonId: seasonIds.spring, name: "البطين", startDate: new Date(y, 4, 25), endDate: new Date(y, 5, 6), description: "", weatherInfo: null, agriculturalInfo: [], tips: [] },
+      { seasonId: seasonIds.spring, name: "الثريا", startDate: new Date(y, 5, 7), endDate: new Date(y, 5, 19), description: "", weatherInfo: null, agriculturalInfo: [], tips: [] },
     ],
   });
 
-  // Summer stars
+  // Summer stars (7)
   await prisma.star.createMany({
     data: [
-      { seasonId: seasonIds.summer, name: "الفرع المقدم", startDate: new Date(year, 5, 22), endDate: new Date(year, 6, 5), description: null, weatherInfo: null, agriculturalInfo: [], tips: [] },
-      { seasonId: seasonIds.summer, name: "الفرع المؤخر", startDate: new Date(year, 6, 6), endDate: new Date(year, 6, 19), description: null, weatherInfo: null, agriculturalInfo: [], tips: [] },
-      { seasonId: seasonIds.summer, name: "الزبرة", startDate: new Date(year, 6, 20), endDate: new Date(year, 7, 2), description: null, weatherInfo: null, agriculturalInfo: [], tips: [] },
+      { seasonId: seasonIds.summer, name: "الدبران", startDate: new Date(y, 5, 20), endDate: new Date(y, 6, 2), description: "", weatherInfo: null, agriculturalInfo: [], tips: [] },
+      { seasonId: seasonIds.summer, name: "الهقعة", startDate: new Date(y, 6, 3), endDate: new Date(y, 6, 15), description: "", weatherInfo: null, agriculturalInfo: [], tips: [] },
+      { seasonId: seasonIds.summer, name: "المنعة", startDate: new Date(y, 6, 16), endDate: new Date(y, 6, 28), description: "", weatherInfo: null, agriculturalInfo: [], tips: [] },
+      { seasonId: seasonIds.summer, name: "المرزم", startDate: new Date(y, 6, 29), endDate: new Date(y, 7, 10), description: "", weatherInfo: null, agriculturalInfo: [], tips: [] },
+      { seasonId: seasonIds.summer, name: "الكليبين", startDate: new Date(y, 7, 11), endDate: new Date(y, 7, 23), description: "", weatherInfo: null, agriculturalInfo: [], tips: [] },
+      { seasonId: seasonIds.summer, name: "الطرف", startDate: new Date(y, 7, 24), endDate: new Date(y, 8, 5), description: "", weatherInfo: null, agriculturalInfo: [], tips: [] },
+      { seasonId: seasonIds.summer, name: "الجبهة", startDate: new Date(y, 8, 6), endDate: new Date(y, 8, 19), description: "", weatherInfo: null, agriculturalInfo: [], tips: [] },
     ],
   });
 
-  // Autumn stars
+  // Autumn stars (6)
   await prisma.star.createMany({
     data: [
-      { seasonId: seasonIds.autumn, name: "الصرفة", startDate: new Date(year, 8, 17), endDate: new Date(year, 8, 30), description: null, weatherInfo: null, agriculturalInfo: [], tips: [] },
-      { seasonId: seasonIds.autumn, name: "العواء", startDate: new Date(year, 9, 1), endDate: new Date(year, 9, 13), description: null, weatherInfo: null, agriculturalInfo: [], tips: [] },
-      { seasonId: seasonIds.autumn, name: "السماك", startDate: new Date(year, 9, 14), endDate: new Date(year, 9, 26), description: null, weatherInfo: null, agriculturalInfo: [], tips: [] },
+      { seasonId: seasonIds.autumn, name: "الزبرة", startDate: new Date(y, 8, 20), endDate: new Date(y, 9, 2), description: "", weatherInfo: null, agriculturalInfo: [], tips: [] },
+      { seasonId: seasonIds.autumn, name: "الصرفة", startDate: new Date(y, 9, 3), endDate: new Date(y, 9, 15), description: "", weatherInfo: null, agriculturalInfo: [], tips: [] },
+      { seasonId: seasonIds.autumn, name: "العواء", startDate: new Date(y, 9, 16), endDate: new Date(y, 9, 28), description: "", weatherInfo: null, agriculturalInfo: [], tips: [] },
+      { seasonId: seasonIds.autumn, name: "السماك", startDate: new Date(y, 9, 29), endDate: new Date(y, 10, 10), description: "", weatherInfo: null, agriculturalInfo: [], tips: [] },
+      { seasonId: seasonIds.autumn, name: "الغفر", startDate: new Date(y, 10, 11), endDate: new Date(y, 10, 23), description: "", weatherInfo: null, agriculturalInfo: [], tips: [] },
+      { seasonId: seasonIds.autumn, name: "الزبانا", startDate: new Date(y, 10, 24), endDate: new Date(y, 11, 6), description: "", weatherInfo: null, agriculturalInfo: [], tips: [] },
     ],
   });
 
@@ -156,7 +149,7 @@ async function main() {
       name: "Admin",
     },
   });
-  console.log("Seed completed: 4 seasons, 12 stars, and admin user created.");
+  console.log("Seed completed: 4 seasons, 28 stars, and admin user created.");
   console.log("Admin login:", adminEmail, "| Change ADMIN_PASSWORD in production.");
 }
 
