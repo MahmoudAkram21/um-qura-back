@@ -4,7 +4,7 @@
 import { prisma } from "../../prisma/client.js";
 import { formatDateForApi, formatDateRange } from "../../utils/dateFormat.js";
 import type { StarCalendarItem, SeasonCalendarItem } from "../../types/stars.js";
-import type { Prisma } from "@prisma/client";
+import type { Prisma } from "../../generated/prisma/client.js";
 
 const AGRICULTURAL_TIPS_JSON = "agriculturalInfo" as const;
 const TIPS_JSON = "tips" as const;
